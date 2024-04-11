@@ -48,41 +48,65 @@ function submitAnswer() {
     startQuestion();
   } else {
     alert(`回答错误，正确答案是 ${correctAnswer}`);
+    userAnswer.value = ''; // 清空答案输入框
   }
 }
+
+function OnCreate() {
+  startQuestion();
+}
+
+OnCreate();
 </script>
 
 <template>
   <el-header style="height: 100px;">
-    <h1 style="text-align: center;background-color: antiquewhite">小学生简单四则运算</h1>
+    <h1 style="text-align: center">小学生简单四则运算</h1>
   </el-header>
   <div style="margin-top: 10vh"></div>
-  <el-main>
-    <el-card style="max-width: 480px ;text-align: center;background-color: aquamarine">
+  <el-main @keyup.enter="submitAnswer" @keyup.space="startQuestion" class="main">
+    <el-card class="card">
       <p class="text item">{{ question }}</p>
       <el-input v-model="userAnswer" placeholder="请输入答案" style="margin-bottom: 30px"></el-input>
-      <el-button type="primary" round @click="startQuestion">出题</el-button>
-      <el-button type="primary" round @click="submitAnswer">提交</el-button>
+      <el-button type="primary" round @click="startQuestion" class="button" style="margin-right: 40px">出题</el-button>
+      <el-button type="primary" round @click="submitAnswer" class="button" style="margin-left: 40px">提交</el-button>
     </el-card>
   </el-main>
+
+  <el-footer style="height: 100px;margin-top: 30vh">
+    <p style="text-align: center">快捷键设置：(鼠标焦点在输入框中可触发)</p>
+    <p style="text-align: center">空格：出题；enter：提交</p>
+  </el-footer>
 </template>
 
-<style scoped>
-.el-main {
-  display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
+<style>
+html, body {
+  height: 100%;
+  background: linear-gradient(to bottom right, #e0f2f7, #d8bfd8);
 }
 
-.el-card {
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
   padding: 2em;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: center;
 }
 
 .text.item {
   font-size: 1.2em;
   margin-bottom: 1em;
+  color: #607d8b;
 }
 
+.button {
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
 </style>
